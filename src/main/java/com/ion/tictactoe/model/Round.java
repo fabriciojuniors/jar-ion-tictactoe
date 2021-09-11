@@ -18,11 +18,9 @@ public class Round implements Serializable {
     private Long id;
 
     @Column(name = "player1", nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER)
     private String player1;
 
     @Column(name = "player2", nullable = true)
-    @ManyToOne(fetch = FetchType.EAGER)
     private String player2;
 
     @Enumerated(EnumType.STRING)
@@ -54,6 +52,14 @@ public class Round implements Serializable {
     }
 
     public Round(){}
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
 
     public TipoPartida getTipoPartida() {
         return tipoPartida;
