@@ -26,7 +26,7 @@ public class RoundController {
             }
 
         }else{
-            Round savedRound = repository.getById(round.getId());
+            Round savedRound = repository.findById(round.getId()).get();
             if(savedRound.getStatusRound().equals(StatusRound.FI)){
                 throw new GameIsOverException();
             }
