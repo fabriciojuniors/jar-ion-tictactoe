@@ -2,7 +2,6 @@ package com.ion.tictactoe.model;
 
 import com.ion.tictactoe.enums.StatusRound;
 import com.ion.tictactoe.enums.TipoPartida;
-import jdk.jpackage.internal.Log;
 
 import javax.persistence.*;
 import java.io.Serializable;
