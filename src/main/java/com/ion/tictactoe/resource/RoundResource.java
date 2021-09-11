@@ -1,5 +1,7 @@
 package com.ion.tictactoe.resource;
 
+import com.ion.tictactoe.controller.RoundController;
+import com.ion.tictactoe.exceptions.GameIsOverException;
 import com.ion.tictactoe.model.Round;
 import com.ion.tictactoe.repository.RoundRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,16 @@ public class RoundResource {
     @Autowired
     RoundRepository repository;
 
+    @Autowired
+    RoundController controller;
+
     @PostMapping
-    public ResponseEntity<Round> save(@RequestBody Round round){
-        Logger.getLogger("TESTE").info(round.toString());
-        return ResponseEntity.ok().body(repository.save(round));
+    public ResponseEntity<Round> save(@RequestBody Round round) throws GameIsOverException {
+        try{
+            return ResponseEntity.ok().body(controller.save(round));
+        }catch (GameIsOverException e){
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping

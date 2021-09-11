@@ -1,13 +1,10 @@
 package com.ion.tictactoe.model;
 
-import com.ion.tictactoe.services.validation.PlayerSave;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "player")
-@PlayerSave
 public class Player implements Serializable {
 
     @Id

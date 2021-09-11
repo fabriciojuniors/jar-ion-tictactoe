@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Logger;
 
 @Entity
 @Table(name = "round")
@@ -46,9 +47,8 @@ public class Round implements Serializable {
         this.player2 = player2;
         this.statusRound = statusRound;
         this.winner = winner;
-        this.board = this.initBoard();
         this.tipoPartida = tipoPartida;
-        this.codigo = new Random().nextInt();
+        this.setCodigo();
     }
 
     public Round(){}
@@ -57,8 +57,9 @@ public class Round implements Serializable {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCodigo() {
+        int random = new Random().nextInt(99999);
+        this.codigo = random;
     }
 
     public TipoPartida getTipoPartida() {
@@ -113,11 +114,65 @@ public class Round implements Serializable {
         return winner;
     }
 
-    public void setWinner(String winner) {
-        this.winner = winner;
+    public boolean setWinner() {
+        for(int i = 0; i < 3; i++){
+            if(!this.board[i][0].equals("-") &&this.board[i][0].equals(this.board[i][1]) && this.board[i][0].equals(this.board[i][2])){
+                this.winner = this.board[i][0].equals("x") ? this.player1 : this.player2;
+                return true;
+            }
+        }
+
+        if(this.board[0][0].equals(this.board[1][1]) && this.board[0][0].equals(this.board[2][2])){
+            if(!this.board[0][0].equals("-")){
+                this.winner = this.board[0][0].equals("x") ? this.player1 : this.player2;
+                return true;
+            }
+        }
+
+        if(this.board[0][2].equals(this.board[1][1]) && this.board[0][0].equals(this.board[2][0])){
+            if(!this.board[0][2].equals("-")){
+                this.winner = this.board[0][0].equals("x") ? this.player1 : this.player2;
+                return true;
+            }
+        }
+
+        if(this.board[0][0].equals(this.board[1][0]) && this.board[0][0].equals(this.board[2][0])){
+            if(!this.board[0][0].equals("-")){
+                this.winner = this.board[0][0].equals("x") ? this.player1 : this.player2;
+                return true;
+            }
+        }
+
+        if(this.board[0][1].equals(this.board[1][1]) && this.board[0][1].equals(this.board[2][1])){
+            if(!this.board[0][1].equals("-")){
+                this.winner = this.board[0][1].equals("x") ? this.player1 : this.player2;
+                return true;
+            }
+        }
+
+        if(this.board[0][2].equals(this.board[1][2]) && this.board[0][2].equals(this.board[2][2])){
+            if(!this.board[0][2].equals("-")){
+                this.winner = this.board[0][2].equals("x") ? this.player1 : this.player2;
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    private String[][] initBoard(){
+    public void botPlay(){
+        Integer linha = new Random().nextInt(3);
+        Integer coluna = new Random().nextInt(3);
+        Logger.getLogger("BotPlay").info("Linha: " + linha + "\tColuna: " + coluna);
+
+        if(this.board[linha][coluna].equals("-")){
+            this.board[linha][coluna] = "o";
+            return;
+        }
+        this.botPlay();
+    }
+
+    public void initBoard(){
         String[][] board = new String[3][3];
 
         for(int i = 0; i < 3; i++){
@@ -125,7 +180,25 @@ public class Round implements Serializable {
                 board[i][j] = "-";
             }
         }
-        return board;
+        this.board = board;
+    }
+
+    public boolean isGameOver(){
+        if(this.setWinner()){
+            return true;
+        }
+
+        int emBrancos = 0;
+
+        for(int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (this.board[i][j].equals("-")) {
+                    emBrancos++;
+                }
+            }
+        }
+
+        return emBrancos == 0;
     }
 
     @Override
