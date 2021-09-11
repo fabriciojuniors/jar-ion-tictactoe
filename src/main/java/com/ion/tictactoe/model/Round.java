@@ -2,6 +2,7 @@ package com.ion.tictactoe.model;
 
 import com.ion.tictactoe.enums.StatusRound;
 import com.ion.tictactoe.enums.TipoPartida;
+import jdk.jpackage.internal.Log;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -116,14 +117,19 @@ public class Round implements Serializable {
 
     public boolean setWinner() {
         for(int i = 0; i < 3; i++){
-            if(!this.board[i][0].equals("-") &&this.board[i][0].equals(this.board[i][1]) && this.board[i][0].equals(this.board[i][2])){
-                this.winner = this.board[i][0].equals("x") ? this.player1 : this.player2;
-                return true;
+            if(this.board[i][0].equals(this.board[i][1]) && this.board[i][0].equals(this.board[i][2])){
+                if(!this.board[i][0].equals("-")){
+                    Logger.getLogger("CHECK").info("Ganhou com linha " + i);
+                    this.winner = this.board[i][0].equals("x") ? this.player1 : this.player2;
+                    return true;
+                }
+
             }
         }
 
         if(this.board[0][0].equals(this.board[1][1]) && this.board[0][0].equals(this.board[2][2])){
             if(!this.board[0][0].equals("-")){
+                Logger.getLogger("CHECK").info("Ganhou com cruzada esquerda-direita");
                 this.winner = this.board[0][0].equals("x") ? this.player1 : this.player2;
                 return true;
             }
@@ -131,6 +137,7 @@ public class Round implements Serializable {
 
         if(this.board[0][2].equals(this.board[1][1]) && this.board[0][2].equals(this.board[2][0])){
             if(!this.board[0][2].equals("-")){
+                Logger.getLogger("CHECK").info("Ganhou com cruzada direita-esquerda");
                 this.winner = this.board[0][0].equals("x") ? this.player1 : this.player2;
                 return true;
             }
@@ -138,6 +145,7 @@ public class Round implements Serializable {
 
         if(this.board[0][0].equals(this.board[1][0]) && this.board[0][0].equals(this.board[2][0])){
             if(!this.board[0][0].equals("-")){
+                Logger.getLogger("CHECK").info("Ganhou com coluna 1");
                 this.winner = this.board[0][0].equals("x") ? this.player1 : this.player2;
                 return true;
             }
@@ -145,6 +153,7 @@ public class Round implements Serializable {
 
         if(this.board[0][1].equals(this.board[1][1]) && this.board[0][1].equals(this.board[2][1])){
             if(!this.board[0][1].equals("-")){
+                Logger.getLogger("CHECK").info("Ganhou com coluna 2");
                 this.winner = this.board[0][1].equals("x") ? this.player1 : this.player2;
                 return true;
             }
@@ -152,10 +161,13 @@ public class Round implements Serializable {
 
         if(this.board[0][2].equals(this.board[1][2]) && this.board[0][2].equals(this.board[2][2])){
             if(!this.board[0][2].equals("-")){
+                Logger.getLogger("CHECK").info("Ganhou com coluna 3");
                 this.winner = this.board[0][2].equals("x") ? this.player1 : this.player2;
                 return true;
             }
         }
+
+        Logger.getLogger("CHECK").info("Ainda não ganhou");
 
         return false;
     }
