@@ -6,6 +6,7 @@ import com.ion.tictactoe.enums.TipoPartida;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Random;
 
 @Entity
 @Table(name = "round")
@@ -38,6 +39,9 @@ public class Round implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipoPartida tipoPartida;
 
+    @Column
+    private int codigo;
+
     public Round(Long id, String player1, String player2, StatusRound statusRound, String winner, TipoPartida tipoPartida) {
         this.id = id;
         this.player1 = player1;
@@ -46,6 +50,7 @@ public class Round implements Serializable {
         this.winner = winner;
         this.board = this.initBoard();
         this.tipoPartida = tipoPartida;
+        this.codigo = new Random().nextInt();
     }
 
     public Round(){}
