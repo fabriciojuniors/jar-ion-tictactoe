@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @RestController
@@ -33,6 +34,11 @@ public class RoundResource {
     @GetMapping
     public ResponseEntity<List<Round>> list(){
         return ResponseEntity.ok().body(repository.findAll());
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Round> obterId(@PathVariable int id){
+        return ResponseEntity.ok().body(repository.findById((long) id).get());
     }
 
 }
