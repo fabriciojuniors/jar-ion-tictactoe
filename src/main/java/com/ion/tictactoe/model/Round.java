@@ -137,7 +137,7 @@ public class Round implements Serializable {
         if(this.board[0][2].equals(this.board[1][1]) && this.board[0][2].equals(this.board[2][0])){
             if(!this.board[0][2].equals("-")){
                 Logger.getLogger("CHECK").info("Ganhou com cruzada direita-esquerda");
-                this.winner = this.board[0][0].equals("x") ? this.player1 : this.player2;
+                this.winner = this.board[0][2].equals("x") ? this.player1 : this.player2;
                 return true;
             }
         }
