@@ -1,6 +1,7 @@
 package com.ion.tictactoe.model;
 
 import com.ion.tictactoe.enums.StatusRound;
+import com.ion.tictactoe.enums.TipoPartida;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,34 +16,47 @@ public class Round implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @JoinColumn(name = "player_1", referencedColumnName = "id", nullable = false)
+    @Column(name = "player1", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
-    private Player player1;
+    private String player1;
 
-    @JoinColumn(name = "player_2", referencedColumnName = "id", nullable = true)
+    @Column(name = "player2", nullable = true)
     @ManyToOne(fetch = FetchType.EAGER)
-    private Player player2;
+    private String player2;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private StatusRound statusRound;
 
-    @JoinColumn(name = "winner", referencedColumnName = "id", nullable = true)
-    private Player winner;
+    @Column(name = "winner", nullable = true)
+    private String winner;
 
     @Column()
     private String[][] board = new String[3][3];
 
-    public Round(Long id, Player player1, Player player2, StatusRound statusRound, Player winner) {
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TipoPartida tipoPartida;
+
+    public Round(Long id, String player1, String player2, StatusRound statusRound, String winner, TipoPartida tipoPartida) {
         this.id = id;
         this.player1 = player1;
         this.player2 = player2;
         this.statusRound = statusRound;
         this.winner = winner;
         this.board = this.initBoard();
+        this.tipoPartida = tipoPartida;
     }
 
     public Round(){}
+
+    public TipoPartida getTipoPartida() {
+        return tipoPartida;
+    }
+
+    public void setTipoPartida(TipoPartida tipoPartida) {
+        this.tipoPartida = tipoPartida;
+    }
 
     public String[][] getBoard() {
         return board;
@@ -60,19 +74,19 @@ public class Round implements Serializable {
         this.id = id;
     }
 
-    public Player getPlayer1() {
+    public String getPlayer1() {
         return player1;
     }
 
-    public void setPlayer1(Player player1) {
+    public void setPlayer1(String player1) {
         this.player1 = player1;
     }
 
-    public Player getPlayer2() {
+    public String getPlayer2() {
         return player2;
     }
 
-    public void setPlayer2(Player player2) {
+    public void setPlayer2(String player2) {
         this.player2 = player2;
     }
 
@@ -84,11 +98,11 @@ public class Round implements Serializable {
         this.statusRound = statusRound;
     }
 
-    public Player getWinner() {
+    public String getWinner() {
         return winner;
     }
 
-    public void setWinner(Player winner) {
+    public void setWinner(String winner) {
         this.winner = winner;
     }
 
