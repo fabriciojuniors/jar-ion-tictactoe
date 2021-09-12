@@ -117,7 +117,7 @@ public class Round implements Serializable {
     public boolean setWinner() {
         for(int i = 0; i < 3; i++){
             if(this.board[i][0].equals(this.board[i][1]) && this.board[i][0].equals(this.board[i][2])){
-                if(!this.board[i][0].equals("-")){
+                if(!this.board[i][0].equals("")){
                     Logger.getLogger("CHECK").info("Ganhou com linha " + i);
                     this.winner = this.board[i][0].equals("x") ? this.player1 : this.player2;
                     return true;
@@ -127,7 +127,7 @@ public class Round implements Serializable {
         }
 
         if(this.board[0][0].equals(this.board[1][1]) && this.board[0][0].equals(this.board[2][2])){
-            if(!this.board[0][0].equals("-")){
+            if(!this.board[0][0].equals("")){
                 Logger.getLogger("CHECK").info("Ganhou com cruzada esquerda-direita");
                 this.winner = this.board[0][0].equals("x") ? this.player1 : this.player2;
                 return true;
@@ -135,7 +135,7 @@ public class Round implements Serializable {
         }
 
         if(this.board[0][2].equals(this.board[1][1]) && this.board[0][2].equals(this.board[2][0])){
-            if(!this.board[0][2].equals("-")){
+            if(!this.board[0][2].equals("")){
                 Logger.getLogger("CHECK").info("Ganhou com cruzada direita-esquerda");
                 this.winner = this.board[0][2].equals("x") ? this.player1 : this.player2;
                 return true;
@@ -143,7 +143,7 @@ public class Round implements Serializable {
         }
 
         if(this.board[0][0].equals(this.board[1][0]) && this.board[0][0].equals(this.board[2][0])){
-            if(!this.board[0][0].equals("-")){
+            if(!this.board[0][0].equals("")){
                 Logger.getLogger("CHECK").info("Ganhou com coluna 1");
                 this.winner = this.board[0][0].equals("x") ? this.player1 : this.player2;
                 return true;
@@ -151,7 +151,7 @@ public class Round implements Serializable {
         }
 
         if(this.board[0][1].equals(this.board[1][1]) && this.board[0][1].equals(this.board[2][1])){
-            if(!this.board[0][1].equals("-")){
+            if(!this.board[0][1].equals("")){
                 Logger.getLogger("CHECK").info("Ganhou com coluna 2");
                 this.winner = this.board[0][1].equals("x") ? this.player1 : this.player2;
                 return true;
@@ -159,7 +159,7 @@ public class Round implements Serializable {
         }
 
         if(this.board[0][2].equals(this.board[1][2]) && this.board[0][2].equals(this.board[2][2])){
-            if(!this.board[0][2].equals("-")){
+            if(!this.board[0][2].equals("")){
                 Logger.getLogger("CHECK").info("Ganhou com coluna 3");
                 this.winner = this.board[0][2].equals("x") ? this.player1 : this.player2;
                 return true;
@@ -176,7 +176,7 @@ public class Round implements Serializable {
         Integer coluna = new Random().nextInt(3);
         Logger.getLogger("BotPlay").info("Linha: " + linha + "\tColuna: " + coluna);
 
-        if(this.board[linha][coluna].equals("-")){
+        if(this.board[linha][coluna].equals("")){
             this.board[linha][coluna] = "o";
             return;
         }
@@ -188,7 +188,7 @@ public class Round implements Serializable {
 
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                board[i][j] = "-";
+                board[i][j] = "";
             }
         }
         this.board = board;
@@ -203,7 +203,7 @@ public class Round implements Serializable {
 
         for(int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (this.board[i][j].equals("-")) {
+                if (this.board[i][j].equals("")) {
                     emBrancos++;
                 }
             }
