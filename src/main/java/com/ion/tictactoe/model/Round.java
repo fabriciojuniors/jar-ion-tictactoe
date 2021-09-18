@@ -31,6 +31,9 @@ public class Round implements Serializable {
     @Column(name = "winner", nullable = true)
     private String winner;
 
+    @Column(name = "next", nullable = true)
+    private String next;
+
     @Column()
     private String[][] board = new String[3][3];
 
@@ -52,6 +55,14 @@ public class Round implements Serializable {
     }
 
     public Round(){}
+
+    public String getNext() {
+        return next;
+    }
+
+    public void setNext(String next) {
+        this.next = next;
+    }
 
     public int getCodigo() {
         return codigo;

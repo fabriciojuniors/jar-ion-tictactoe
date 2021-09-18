@@ -20,6 +20,7 @@ public class RoundController {
         if(round.getId() == null){
             round.initBoard();
             round.setCodigo();
+            round.setNext(round.getPlayer1());
 
             if(round.getTipoPartida() == TipoPartida.SOLO){
                 round.setPlayer2("Bot Math");
@@ -30,6 +31,12 @@ public class RoundController {
             if(savedRound.getStatusRound().equals(StatusRound.FI)){
                 throw new GameIsOverException();
             }
+        }
+
+        if (round.getNext() == round.getPlayer1()) {
+            round.setNext(round.getPlayer2());
+        } else {
+            round.setNext(round.getPlayer1());
         }
 
         if (!round.isGameOver() && round.getTipoPartida() == TipoPartida.SOLO) {
