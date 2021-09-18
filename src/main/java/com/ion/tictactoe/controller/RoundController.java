@@ -39,6 +39,10 @@ public class RoundController {
             round.setNext(round.getPlayer1());
         }
 
+        Logger.getLogger("NEXT").info("O próximo é: " + round.getNext());
+        Logger.getLogger("PLAYER1").info(round.getPlayer1());
+        Logger.getLogger("PLAYER2").info(round.getPlayer2());
+
         if (!round.isGameOver() && round.getTipoPartida() == TipoPartida.SOLO) {
             round.botPlay();
         }
