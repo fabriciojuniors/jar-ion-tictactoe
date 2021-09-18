@@ -32,12 +32,12 @@ public class RoundController {
             if(savedRound.getStatusRound().equals(StatusRound.FI)){
                 throw new GameIsOverException();
             }
-        }
 
-        if (savedRound.getNext() == round.getPlayer1()) {
-            round.setNext(round.getPlayer2());
-        } else {
-            round.setNext(round.getPlayer1());
+            if (savedRound.getNext() == round.getPlayer1()) {
+                round.setNext(round.getPlayer2());
+            } else {
+                round.setNext(round.getPlayer1());
+            }
         }
 
         Logger.getLogger("NEXT").info("O próximo é: " + round.getNext());
