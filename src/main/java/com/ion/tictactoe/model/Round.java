@@ -61,14 +61,15 @@ public class Round implements Serializable {
     }
 
     public void setNext() {
-        if(this.next.equals(null)){
-            this.next = this.player1;
-        }else{
+        try{
             if(this.next.equals(this.player1)){
                 this.next = this.player2;
             }else{
                 this.next = this.player1;
             }
+        }catch (NullPointerException ex){
+            Logger.getLogger("Next").info("Definido player 1 como o próximo");
+            this.next = this.player1;
         }
 
     }
