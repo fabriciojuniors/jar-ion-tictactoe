@@ -33,7 +33,6 @@ public class RoundController {
                 throw new GameIsOverException();
             }
         }
-        round.setNext();
         Logger.getLogger("NEXT").info("O próximo é: " + round.getNext());
         Logger.getLogger("PLAYER1").info(round.getPlayer1());
         Logger.getLogger("PLAYER2").info(round.getPlayer2());
