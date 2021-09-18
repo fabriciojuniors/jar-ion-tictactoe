@@ -60,8 +60,12 @@ public class Round implements Serializable {
         return next;
     }
 
-    public void setNext(String next) {
-        this.next = next;
+    public void setNext() {
+        if(this.next.equals(this.player1)){
+            this.next = this.player2;
+        }else{
+            this.next = this.player1;
+        }
     }
 
     public int getCodigo() {

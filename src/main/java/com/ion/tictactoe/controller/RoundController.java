@@ -21,7 +21,7 @@ public class RoundController {
         if(round.getId() == null){
             round.initBoard();
             round.setCodigo();
-            round.setNext(round.getPlayer1());
+            round.setNext();
 
             if(round.getTipoPartida() == TipoPartida.SOLO){
                 round.setPlayer2("Bot Math");
@@ -32,14 +32,8 @@ public class RoundController {
             if(savedRound.getStatusRound().equals(StatusRound.FI)){
                 throw new GameIsOverException();
             }
-
-            if (savedRound.getNext() == round.getPlayer1()) {
-                round.setNext(round.getPlayer2());
-            } else {
-                round.setNext(round.getPlayer1());
-            }
         }
-
+        round.setNext();
         Logger.getLogger("NEXT").info("O próximo é: " + round.getNext());
         Logger.getLogger("PLAYER1").info(round.getPlayer1());
         Logger.getLogger("PLAYER2").info(round.getPlayer2());
