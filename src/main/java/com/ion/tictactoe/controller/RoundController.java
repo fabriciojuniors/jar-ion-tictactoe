@@ -17,6 +17,7 @@ public class RoundController {
     RoundRepository repository;
 
     public Round save(Round round) throws GameIsOverException {
+        Round savedRound = null;
         if(round.getId() == null){
             round.initBoard();
             round.setCodigo();
@@ -27,13 +28,13 @@ public class RoundController {
             }
 
         }else{
-            Round savedRound = repository.findById(round.getId()).get();
+            savedRound = repository.findById(round.getId()).get();
             if(savedRound.getStatusRound().equals(StatusRound.FI)){
                 throw new GameIsOverException();
             }
         }
 
-        if (round.getNext() == round.getPlayer1()) {
+        if (savedRound.getNext() == round.getPlayer1()) {
             round.setNext(round.getPlayer2());
         } else {
             round.setNext(round.getPlayer1());
