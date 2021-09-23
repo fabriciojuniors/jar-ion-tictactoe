@@ -26,16 +26,4 @@ public class IonTicTacToeApplication {
 		SpringApplication.run(IonTicTacToeApplication.class, args);
 	}
 
-	@Bean
-	FirebaseMessaging firebaseMessaging() throws IOException {
-		GoogleCredentials googleCredentials = GoogleCredentials
-				.fromStream(new ClassPathResource("firebase-service-account.json").getInputStream());
-		FirebaseOptions firebaseOptions = FirebaseOptions
-				.builder()
-				.setCredentials(googleCredentials)
-				.build();
-		FirebaseApp app = FirebaseApp.initializeApp(firebaseOptions, "ion-tictactoe");
-		return FirebaseMessaging.getInstance(app);
-	}
-
 }
